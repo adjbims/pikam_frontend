@@ -25,7 +25,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void initState() {
     super.initState();
     _loadEnv();
-    _checkLoginStatus(); // Mengecek status login saat layar dimuat
+    _checkLoginStatus();
   }
 
   Future<void> _loadEnv() async {
@@ -41,13 +41,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   bool _validateInputs() {
-    if (_usernameController.text.isEmpty ||
-        _fullnameController.text.isEmpty ||
-        _emailController.text.isEmpty ||
-        _passwordController.text.isEmpty) {
-      _showErrorDialog('Semua field harus diisi');
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+
+    if (_usernameController.text.isEmpty) {
+      _showErrorDialog('Username tidak boleh kosong');
       return false;
     }
+
+    if (_fullnameController.text.isEmpty) {
+      _showErrorDialog('Nama lengkap tidak boleh kosong');
+      return false;
+    }
+
+    if (_emailController.text.isEmpty) {
+      _showErrorDialog('Email tidak boleh kosong');
+      return false;
+    }
+
+    if (!emailRegex.hasMatch(_emailController.text)) {
+      _showErrorDialog('Format email tidak valid');
+      return false;
+    }
+
+    if (_passwordController.text.isEmpty) {
+      _showErrorDialog('Password tidak boleh kosong');
+      return false;
+    }
+
+    if (_passwordController.text.length < 6) {
+      _showErrorDialog('Password harus minimal 6 karakter');
+      return false;
+    }
+
     return true;
   }
 
@@ -88,25 +113,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-
-        // Debugging untuk mengecek apakah respons diterima
-        print('Response: ${response.body}');
-
-        // Jika registrasi berhasil dan token diterima
         if (data['data']['customer_uuid'] != null) {
-          String token = data['data']['customer_uuid']; // Token (UUID) diterima
-          print('Registrasi Berhasil: UUID - $token');
-
-          // Simpan token dan status login
+          String token = data['data']['customer_uuid'];
           await _saveLoginSession(token);
-          Navigator.pushReplacementNamed(
-              context, '/home'); // Langsung ke halaman home
+          Navigator.pushReplacementNamed(context, '/login');
         } else {
           _showErrorDialog(data['message'] ?? 'Registrasi gagal');
         }
       } else {
-        _showErrorDialog(
-            'Registrasi gagal. Status code: ${response.statusCode}');
+        _showErrorDialog('Registrasi gagal. Status code: ${response.statusCode}');
       }
     } catch (e) {
       setState(() {
@@ -118,9 +133,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Future<void> _saveLoginSession(String token) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('auth_token', token); // Simpan token
-    await prefs.setBool('is_logged_in', true); // Tandai bahwa user sudah login
-    print('Token berhasil disimpan: $token');
+    await prefs.setString('auth_token', token);
+    await prefs.setBool('is_logged_in', true);
   }
 
   void _showErrorDialog(String message) {
@@ -155,18 +169,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      'assets/images/logo-pikam.png',
-                      height: 100,
-                    ),
+                    Image.asset('assets/images/logo-pikam.png', height: 100),
                     const SizedBox(height: 20),
                     const Text(
                       'Register',
-                      style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                        color: textColor,
-                      ),
+                      style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: textColor),
                     ),
                     const SizedBox(height: 20),
                     TextField(
@@ -222,31 +229,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       onPressed: _isLoading ? null : _register,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primaryButtonColor,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 50, vertical: 15),
+                        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                       ),
                       child: _isLoading
                           ? const CircularProgressIndicator(color: textColor)
-                          : const Text(
-                              'Register',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: textColor,
-                              ),
-                            ),
+                          : const Text('Register', style: TextStyle(fontSize: 16, color: textColor)),
                     ),
                     const SizedBox(height: 10),
                     TextButton(
                       onPressed: () {
                         Navigator.pushReplacementNamed(context, '/login');
                       },
-                      child: const Text(
-                        'Sudah punya akun? Login',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.blue,
-                        ),
-                      ),
+                      child: const Text('Sudah punya akun? Login', style: TextStyle(fontSize: 16, color: Colors.blue)),
                     ),
                   ],
                 ),

@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -150,9 +151,9 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 10),
               TextButton(
                 onPressed: () {
-                  // Tambahkan aksi untuk daftar
+                  Navigator.pushReplacementNamed(context, '/register');
                 },
-                child: const Text('Belum punya akun? Daftar'),
+                child: const Text('Belum punya akun? Daftarr'),
               ),
             ],
           ),
