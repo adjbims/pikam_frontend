@@ -1,0 +1,52 @@
+{
+    "menu": [
+        {
+            "type": "minuman",
+            "name": "Es Teh Manis",
+            "price": 5000,
+            "description": "Minuman teh dengan tambahan gula yang menyegarkan.",
+            "image": "assets/images/jusjeruk.jpeg",
+            "quantity": 0
+        },
+        {
+            "type": "minuman",
+            "name": "Es Kopi Susu",
+            "price": 15000,
+            "description": "Kopi dicampur susu yang nikmat.",
+            "image": "assets/images/jusjeruk.jpeg",
+            "quantity": 0
+        },
+        {
+            "type": "minuman",
+            "name": "Jus Jeruk",
+            "price": 12000,
+            "description": "Jus jeruk segar dengan rasa alami.",
+            "image": "assets/images/jusjeruk.jpeg",
+            "quantity": 0
+        },
+        {
+            "type": "makanan",
+            "name": "Nasi Goreng",
+            "price": 20000,
+            "description": "Nasi goreng spesial dengan tambahan telur dan ayam.",
+            "image": "assets/images/sateayam.jpeg",
+            "quantity": 0
+        },
+        {
+            "type": "makanan",
+            "name": "Ayam Bakar",
+            "price": 25000,
+            "description": "Ayam bakar dengan bumbu kecap manis dan sambal terasi.",
+            "image": "assets/images/sateayam.jpeg",
+            "quantity": 0
+        },
+        {
+            "type": "makanan",
+            "name": "Mie Goreng",
+            "price": 18000,
+            "description": "Mie goreng dengan sayur dan topping daging ayam.",
+            "image": "assets/images/sateayam.jpeg",
+            "quantity": 0
+        }
+    ]
+}
