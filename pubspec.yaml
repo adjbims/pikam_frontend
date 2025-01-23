@@ -65,6 +65,9 @@ flutter:
         #   - images/a_dot_ham.jpeg
         - assets/images/logo-pikam.png
         - assets/images/jusjeruk.jpeg
+        - assets/images/onb1.png
+        - assets/images/coba.png
+        - assets/images/onb3.jpg
         - assets/images/sateayam.jpeg
         - assets/data/menu_data.json
         - assets/.env
