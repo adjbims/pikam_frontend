@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
-import 'tempat_page.dart'; // Pastikan Anda memiliki TempatPage yang sudah didefinisikan
+import 'tempat_page.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+class DashboardPage extends StatefulWidget {
+  const DashboardPage({Key? key}) : super(key: key);
 
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  _DashboardPageState createState() => _DashboardPageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _DashboardPageState extends State<DashboardPage> {
   List<Map<String, dynamic>> _specialMenuData = [];
   double _totalPrice = 0.0; // Variable untuk total harga keranjang
 
@@ -52,7 +52,6 @@ class _ProfilePageState extends State<ProfilePage> {
       body: SafeArea(
         child: Column(
           children: [
-            _buildAppBar(),
             _buildSearchBar(),
             _buildCategoryIcons(),
             Expanded(child: _buildMenuSpecial()),
@@ -63,53 +62,32 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildAppBar() {
-    return Container(
-      padding: const EdgeInsets.all(20.0),
-      color: Colors.brown,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              const CircleAvatar(
-                backgroundImage: AssetImage('assets/profile_pic.png'),
-              ),
-              const SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text('Halo Users,',
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold)),
-                  Text('Selamat Datang !',
-                      style: TextStyle(color: Colors.white)),
-                ],
-              ),
-            ],
-          ),
-          IconButton(
-            icon: const Icon(Icons.notifications_none, color: Colors.white),
-            onPressed: () {},
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildSearchBar() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: TextField(
-        decoration: InputDecoration(
-          hintText: 'Cari Menu Favoritmu',
-          prefixIcon: const Icon(Icons.search),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Cari Menu Favoritmu',
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                filled: true,
+                fillColor: Colors.white,
+              ),
+            ),
           ),
-          filled: true,
-          fillColor: Colors.white,
-        ),
+          const SizedBox(width: 16),
+          IconButton(
+            icon: const Icon(Icons.notifications),
+            onPressed: () {
+              // Tambahkan aksi untuk ikon lonceng
+            },
+          ),
+        ],
       ),
     );
   }

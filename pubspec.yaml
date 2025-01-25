@@ -63,6 +63,12 @@ flutter:
     assets:
         #   - images/a_dot_burr.jpeg
         #   - images/a_dot_ham.jpeg
+
+        - assets/images/disc/layer1.png
+        - assets/images/disc/layer2.png
+        - assets/images/disc/layer3.png
+
+
         - assets/images/logo-pikam.png
         - assets/images/jusjeruk.jpeg
         - assets/images/onb1.png

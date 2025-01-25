@@ -61,7 +61,7 @@ class Onboarding3Screen extends StatelessWidget {
                         ),
                         ElevatedButton.icon(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/login');
+                            Navigator.pushNamed(context, '/home');
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.brown, // Warna tombol
