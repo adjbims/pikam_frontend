@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
+<<<<<<< HEAD:lib/screens/dashboard_page.dart
 import 'tempat_page.dart';
+=======
+import 'package:http/http.dart' as http;
+import 'tempat_page.dart'; // Pastikan Anda memiliki TempatPage yang sudah didefinisikan
+>>>>>>> a21b567218e381d698183d95aad57833173f65cd:lib/screens/dashboard_screen.dart
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -13,11 +18,13 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   List<Map<String, dynamic>> _specialMenuData = [];
   double _totalPrice = 0.0; // Variable untuk total harga keranjang
+  String _username = 'User'; // Default username
 
   @override
   void initState() {
     super.initState();
     _loadSpecialMenuData();
+    _loadUserData(); // Load user data dari backend
   }
 
   Future<void> _loadSpecialMenuData() async {
@@ -33,6 +40,26 @@ class _DashboardPageState extends State<DashboardPage> {
     setState(() {
       _specialMenuData = foodItems;
     });
+  }
+
+  Future<void> _loadUserData() async {
+    try {
+      // Ganti dengan URL endpoint yang sesuai untuk mendapatkan username
+      final response = await http.get(Uri.parse('http://192.168.1.10:5000/api/v1/user/username'), headers: {
+        'Authorization': 'Bearer YOUR_ACCESS_TOKEN', // Tambahkan token jika diperlukan
+      });
+      
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        setState(() {
+          _username = data['data']['customer_username']; // Ambil username dari respons
+        });
+      } else {
+        print('Failed to load user data: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error loading user data: $e');
+    }
   }
 
   void _updateTotalPrice() {
@@ -62,6 +89,43 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
+<<<<<<< HEAD:lib/screens/dashboard_page.dart
+=======
+  Widget _buildAppBar() {
+    return Container(
+      padding: const EdgeInsets.all(20.0),
+      color: Colors.brown,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              const CircleAvatar(
+                backgroundImage: AssetImage('assets/profile_pic.png'),
+              ),
+              const SizedBox(width: 12),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Halo $_username,', // Tampilkan username dari backend
+                      style: const TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold)),
+                  const Text('Selamat Datang !',
+                      style: TextStyle(color: Colors.white)),
+                ],
+              ),
+            ],
+          ),
+          IconButton(
+            icon: const Icon(Icons.notifications_none, color: Colors.white),
+            onPressed: () {},
+          ),
+        ],
+      ),
+    );
+  }
+
+>>>>>>> a21b567218e381d698183d95aad57833173f65cd:lib/screens/dashboard_screen.dart
   Widget _buildSearchBar() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -261,4 +325,8 @@ class _DashboardPageState extends State<DashboardPage> {
       ),
     );
   }
+<<<<<<< HEAD:lib/screens/dashboard_page.dart
 }
+=======
+} 
+>>>>>>> a21b567218e381d698183d95aad57833173f65cd:lib/screens/dashboard_screen.dart
