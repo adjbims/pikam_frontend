@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
-<<<<<<< HEAD:lib/screens/dashboard_page.dart
-import 'tempat_page.dart';
-=======
 import 'package:http/http.dart' as http;
-import 'tempat_page.dart'; // Pastikan Anda memiliki TempatPage yang sudah didefinisikan
->>>>>>> a21b567218e381d698183d95aad57833173f65cd:lib/screens/dashboard_screen.dart
+import 'tempat_page.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -89,8 +85,6 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-<<<<<<< HEAD:lib/screens/dashboard_page.dart
-=======
   Widget _buildAppBar() {
     return Container(
       padding: const EdgeInsets.all(20.0),
@@ -125,7 +119,6 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
->>>>>>> a21b567218e381d698183d95aad57833173f65cd:lib/screens/dashboard_screen.dart
   Widget _buildSearchBar() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -325,8 +318,4 @@ class _DashboardPageState extends State<DashboardPage> {
       ),
     );
   }
-<<<<<<< HEAD:lib/screens/dashboard_page.dart
 }
-=======
-} 
->>>>>>> a21b567218e381d698183d95aad57833173f65cd:lib/screens/dashboard_screen.dart
