@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
       _isLoading = true;
     });
 
-    await dotenv.load(fileName: ".env");
+    await dotenv.load(fileName: "assets/.env");
 
     final apiBaseUrl = dotenv.env['API_BASE_URL'];
 

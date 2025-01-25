@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:http/http.dart' as http;
 import 'tempat_page.dart'; // Pastikan Anda memiliki TempatPage yang sudah didefinisikan
 
 class CoffeeDashboard extends StatefulWidget {
@@ -13,11 +14,13 @@ class CoffeeDashboard extends StatefulWidget {
 class _CoffeeDashboardState extends State<CoffeeDashboard> {
   List<Map<String, dynamic>> _specialMenuData = [];
   double _totalPrice = 0.0; // Variable untuk total harga keranjang
+  String _username = 'User'; // Default username
 
   @override
   void initState() {
     super.initState();
     _loadSpecialMenuData();
+    _loadUserData(); // Load user data dari backend
   }
 
   Future<void> _loadSpecialMenuData() async {
@@ -33,6 +36,26 @@ class _CoffeeDashboardState extends State<CoffeeDashboard> {
     setState(() {
       _specialMenuData = foodItems;
     });
+  }
+
+  Future<void> _loadUserData() async {
+    try {
+      // Ganti dengan URL endpoint yang sesuai untuk mendapatkan username
+      final response = await http.get(Uri.parse('http://192.168.1.10:5000/api/v1/user/username'), headers: {
+        'Authorization': 'Bearer YOUR_ACCESS_TOKEN', // Tambahkan token jika diperlukan
+      });
+      
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        setState(() {
+          _username = data['data']['customer_username']; // Ambil username dari respons
+        });
+      } else {
+        print('Failed to load user data: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error loading user data: $e');
+    }
   }
 
   void _updateTotalPrice() {
@@ -78,11 +101,11 @@ class _CoffeeDashboardState extends State<CoffeeDashboard> {
               const SizedBox(width: 12),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text('Halo Aji,',
-                      style: TextStyle(
+                children: [
+                  Text('Halo $_username,', // Tampilkan username dari backend
+                      style: const TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold)),
-                  Text('Selamat Datang !',
+                  const Text('Selamat Datang !',
                       style: TextStyle(color: Colors.white)),
                 ],
               ),
@@ -283,4 +306,4 @@ class _CoffeeDashboardState extends State<CoffeeDashboard> {
       ),
     );
   }
-}
+} 

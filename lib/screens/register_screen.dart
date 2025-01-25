@@ -29,7 +29,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Future<void> _loadEnv() async {
-    await dotenv.load(fileName: ".env");
+    await dotenv.load(fileName: "assets/.env");
   }
 
   Future<void> _checkLoginStatus() async {
